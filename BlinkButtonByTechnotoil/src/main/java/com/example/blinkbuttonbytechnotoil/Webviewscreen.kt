@@ -6,14 +6,13 @@ import android.webkit.WebSettings
 import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 
-class Webviewscreen(url: String) : Activity() {
-    var _url = url
+class Webviewscreen: Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val theWebPage = WebView(this)
         theWebPage.settings.javaScriptEnabled = true
         theWebPage.settings.pluginState = WebSettings.PluginState.ON
         setContentView(theWebPage)
-        theWebPage.loadUrl(_url)
+        theWebPage.loadUrl("https://cdn.camweara.com/camweara_jewelry_client/index.php?skus=earring6&company_name=Teststore")
     }
 }
