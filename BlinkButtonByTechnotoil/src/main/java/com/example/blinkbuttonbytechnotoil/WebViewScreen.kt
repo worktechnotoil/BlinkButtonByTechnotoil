@@ -5,12 +5,7 @@ import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import android.webkit.WebViewClient
 
-class WebViewScreen(url: String) : AppCompatActivity() {
-//    val _url: String
-//
-//    init {
-//        _url = url
-//    }
+class WebViewScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
