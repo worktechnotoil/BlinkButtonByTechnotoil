@@ -6,17 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.webkit.WebViewClient
 
 class WebViewScreen(url: String) : AppCompatActivity() {
-    val _url: String
-
-    init {
-        _url = url
-    }
+//    val _url: String
+//
+//    init {
+//        _url = url
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.webiew_layout)
 
-        showwebview(_url);
+        showwebview("https://www.geeksforgeeks.org");
     }
 
     fun showwebview(url: String) {
