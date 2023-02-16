@@ -14,6 +14,7 @@ class Webviewscreen: Activity() {
     var INSTANCE: Webviewscreen? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        INSTANCE=this;
         super.onCreate(savedInstanceState)
         val theWebPage = WebView(this)
         theWebPage.settings.javaScriptEnabled = true
