@@ -8,7 +8,6 @@ import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
-import androidx.appcompat.app.AppCompatActivity
 
 class Webviewscreen: Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +22,6 @@ class Webviewscreen: Activity() {
             }
         })
         setContentView(theWebPage)
-        theWebPage.loadUrl("https://cdn.camweara.com/camweara_jewelry_client/index.php?skus=earring6&company_name=Teststore")
+        theWebPage.loadUrl("https://cdn.camweara.com/camweara_jewelry_client/index.php?skus=demo_1020054,demo_panerai1&company_name=Teststore&1676527013359")
     }
 }
