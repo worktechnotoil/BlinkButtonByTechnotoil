@@ -27,7 +27,9 @@ class Webviewscreen : Activity() {
                 request.grant(request.resources)
             }
         })
+
         setContentView(theWebPage)
+
 
         theWebPage.loadUrl("https://cdn.camweara.com/camweara_jewelry_client/index.php?skus=$skus&company_name=$companyName&1676527013359")
 
