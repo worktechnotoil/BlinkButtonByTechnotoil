@@ -15,7 +15,8 @@ class Webviewscreen : Activity() {
         super.onCreate(savedInstanceState)
         val theWebPage = WebView(this)
 
-        val url: String? = intent.getStringExtra("url")
+        val skus: String? = intent.getStringExtra("skus")
+        val companyName: String? = intent.getStringExtra("companyName")
 
         theWebPage.settings.javaScriptEnabled = true
         theWebPage.settings.pluginState = WebSettings.PluginState.ON
@@ -27,8 +28,8 @@ class Webviewscreen : Activity() {
             }
         })
         setContentView(theWebPage)
-        if (url != null) {
-            theWebPage.loadUrl(url)
-        }
+
+        theWebPage.loadUrl("https://cdn.camweara.com/camweara_jewelry_client/index.php?skus=$skus&company_name=$companyName&1676527013359")
+
     }
 }
