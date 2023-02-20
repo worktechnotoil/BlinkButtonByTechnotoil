@@ -48,12 +48,12 @@ class Webviewscreen : Activity() {
             "<iframe id=\"iFrameID\" src=\"about:blank\" allow=\"camera\"></iframe>\n" +
             "<script type=\"text/javascript\">\n" +
             "\n" +
-            "function onTryonClick(argument) {\n" +
+            "function onTryonClick(allskus, companyName) {\n" +
             "\t\t\n" +
             "\tlet hostURL = window.location;\n" +
             "\tlet tempArr = hostURL.href.split(\"?\");\n" +
             "\n" +
-            "\tvar url = \"https://cdn.camweara.com/camweara_jewelry_client/index.php?skus=earring6&company_name=Teststore\";\n" +
+            "\tvar url = \"https://cdn.camweara.com/camweara_jewelry_client/index.php?skus=\" + allskus + \"&company_name=\" + companyName + \"\";\n" +
             "\n" +
             "\tif(tempArr.length > 1){\n" +
             "\t\turl = url + \"?\"+ tempArr[1];\n" +
