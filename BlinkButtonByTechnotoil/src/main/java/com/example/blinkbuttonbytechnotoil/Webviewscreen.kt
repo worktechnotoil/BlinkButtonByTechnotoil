@@ -139,7 +139,7 @@ class Webviewscreen : Activity() {
 
     @JavascriptInterface
     fun showToast() {
-        Toast.makeText(this, "Back button", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Back button", Toast.LENGTH_SHORT).show()
         finish()
     }
 
@@ -173,7 +173,11 @@ class Webviewscreen : Activity() {
 
         theWebPage.setWebViewClient(object : WebViewClient() {
             override fun onPageFinished(view: WebView, weburl: String) {
-                theWebPage.loadUrl("javascript:onTryonClick('earring6');")
+                var url = "javascript:onTryonClick('$skus', '$companyName');"
+                theWebPage.loadUrl(
+                    url
+                )
+               // theWebPage.loadUrl("javascript:onTryonClick('earring6');")
             }
         })
 
