@@ -125,17 +125,24 @@ class Webviewscreen : Activity() {
             "</body>\n" +
             "</html>\n"
 
-    class MyJsInterface(private val mContext: Context) {
-        @JavascriptInterface
-        fun get_version(): Int {
-            return Build.VERSION.SDK_INT
-        }
+//    class MyJsInterface(private val mContext: Context) {
+//        @JavascriptInterface
+//        fun get_version(): Int {
+//            return Build.VERSION.SDK_INT
+//        }
+//
+//        @JavascriptInterface
+//        fun showToast() {
+//            Toast.makeText(mContext, "Back button", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
-        @JavascriptInterface
-        fun showToast() {
-            Toast.makeText(mContext, "Back button", Toast.LENGTH_SHORT).show()
-        }
+    @JavascriptInterface
+    fun showToast() {
+        Toast.makeText(this, "Back button", Toast.LENGTH_SHORT).show()
+        finish()
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -170,6 +177,6 @@ class Webviewscreen : Activity() {
             }
         })
 
-        theWebPage.addJavascriptInterface(MyJsInterface(this), "Android")
+        theWebPage.addJavascriptInterface(this, "Android")
     }
 }
