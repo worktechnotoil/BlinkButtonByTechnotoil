@@ -5,6 +5,7 @@ import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.webkit.*
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -168,15 +169,28 @@ class Webviewscreen : Activity() {
                 )
                 val skusJson = jsonObj.getJSONArray("sku")
                 var language = arrayOf(skusJson)
+                var isNo = 0
                 for (item in language)
                     for (i in 0 until item.length()) {
                         for (j in 0 until strs!!.size) {
                             if (item[i].toString().equals(strs[j].toString().trim())) {
+                                isNo = 1
                                 showwebview()
                                 break
+                            } else {
+                                isNo = 0
                             }
                         }
                     }
+
+                if (isNo == 0) {
+                    Toast.makeText(
+                        this,
+                        "Your product's is not contain in my list",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+                }
             }
         }
     }
