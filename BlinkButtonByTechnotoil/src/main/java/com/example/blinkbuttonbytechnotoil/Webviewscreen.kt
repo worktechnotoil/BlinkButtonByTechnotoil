@@ -14,6 +14,7 @@ import java.io.BufferedInputStream
 import java.io.InputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import kotlin.concurrent.thread
 import kotlin.system.measureTimeMillis
 
 
@@ -140,16 +141,49 @@ class Webviewscreen : Activity() {
         finish()
     }
 
-
+    private lateinit var theWebPage: WebView
+    var skus = ""
+    var companyName = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val skus: String? = intent.getStringExtra("skus")
-        val companyName: String? = intent.getStringExtra("companyName")
+        skus = intent.getStringExtra("skus").toString()
+        companyName = intent.getStringExtra("companyName").toString()
 
         val strs = skus?.split(",")?.toTypedArray()
+        theWebPage = WebView(this)
 
-        val theWebPage = WebView(this)
+        thread {
+            val result = try {
+                URL("https://camweara-customers.s3.ap-south-1.amazonaws.com/Teststore/Teststore_tryonbutton.json").readText()
+            } catch (e: Exception) {
+                return@thread
+            }
+            runOnUiThread {
+                val jsonObj = JSONObject(
+                    result.substring(
+                        result.indexOf("{"),
+                        result.lastIndexOf("}") + 1
+                    )
+                )
+                val skusJson = jsonObj.getJSONArray("sku")
+                var language = arrayOf(skusJson)
+                for (item in language)
+                    for (i in 0 until item.length()) {
+                        for (j in 0 until strs!!.size) {
+                            if (item[i].toString().equals(strs[j].toString().trim())) {
+                                showwebview()
+                                break
+                            }
+                        }
+                    }
+            }
+        }
+    }
+
+
+    fun showwebview() {
+
         theWebPage.settings.javaScriptEnabled = true
         theWebPage.settings.pluginState = WebSettings.PluginState.ON
         theWebPage.setWebChromeClient(object : WebChromeClient() {
@@ -158,41 +192,13 @@ class Webviewscreen : Activity() {
                 request.grant(request.resources)
             }
         })
-
-        GlobalScope.launch(Dispatchers.IO) {
-            val time = measureTimeMillis {
-                val result =
-                    URL("https://camweara-customers.s3.ap-south-1.amazonaws.com/Teststore/Teststore_tryonbutton.json").readText()
-                val jsonObj = JSONObject(
-                    result.substring(
-                        result.indexOf("{"),
-                        result.lastIndexOf("}") + 1
-                    )
-                )
-                var isShow = false;
-                val skusJson = jsonObj.getJSONArray("sku")
-                var language = arrayOf(skusJson)
-                for (item in language)
-                    for (i in 0 until item.length()) {
-                        for (j in 0 until strs!!.size) {
-                            if (item[i].toString().equals(strs[j].toString().trim()))
-                                println("imran: " + item[i])
-                            isShow = true;
-                        }
-                    }
-
-                if (isShow) {
-                    theWebPage.loadDataWithBaseURL(
-                        "https://cdn.camweara.com/",
-                        text,
-                        "text/html",
-                        "UTF-8",
-                        null
-                    )
-                    setContentView(theWebPage)
-                }
-            }
-        }
+        theWebPage.loadDataWithBaseURL(
+            "https://cdn.camweara.com/",
+            text,
+            "text/html",
+            "UTF-8",
+            null
+        )
 
         theWebPage.setWebViewClient(object : WebViewClient() {
             override fun onPageFinished(view: WebView, weburl: String) {
@@ -203,8 +209,8 @@ class Webviewscreen : Activity() {
                 // theWebPage.loadUrl("javascript:onTryonClick('earring6');")
             }
         })
+        setContentView(theWebPage)
+
         theWebPage.addJavascriptInterface(this, "Android")
-
-
     }
 }
