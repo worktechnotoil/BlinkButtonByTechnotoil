@@ -174,23 +174,20 @@ class Webviewscreen : Activity() {
                     for (i in 0 until item.length()) {
                         for (j in 0 until strs!!.size) {
                             if (item[i].toString().equals(strs[j].toString().trim())) {
-                                isNo = 1
                                 showwebview()
                                 break
-                            } else {
-                                isNo = 0
                             }
                         }
                     }
 
-                if (isNo == 0) {
-                    Toast.makeText(
-                        this,
-                        "Your product's is not contain in my list",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    finish()
-                }
+//                if (isNo == 0) {
+//                    Toast.makeText(
+//                        this,
+//                        "Your product's is not contain in my list",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    finish()
+//                }
             }
         }
     }
