@@ -2,11 +2,19 @@ package com.example.blinkbuttonbytechnotoil
 
 import android.annotation.TargetApi
 import android.app.Activity
-import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.webkit.*
-import android.widget.Toast
+import androidx.annotation.RequiresApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.json.JSONObject
+import java.io.BufferedInputStream
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import kotlin.system.measureTimeMillis
 
 
 class Webviewscreen : Activity() {
@@ -125,17 +133,6 @@ class Webviewscreen : Activity() {
             "</body>\n" +
             "</html>\n"
 
-//    class MyJsInterface(private val mContext: Context) {
-//        @JavascriptInterface
-//        fun get_version(): Int {
-//            return Build.VERSION.SDK_INT
-//        }
-//
-//        @JavascriptInterface
-//        fun showToast() {
-//            Toast.makeText(mContext, "Back button", Toast.LENGTH_SHORT).show()
-//        }
-//    }
 
     @JavascriptInterface
     fun showToast() {
@@ -146,14 +143,15 @@ class Webviewscreen : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val theWebPage = WebView(this)
 
         val skus: String? = intent.getStringExtra("skus")
         val companyName: String? = intent.getStringExtra("companyName")
 
+        val strs = skus?.split(",")?.toTypedArray()
+
+        val theWebPage = WebView(this)
         theWebPage.settings.javaScriptEnabled = true
         theWebPage.settings.pluginState = WebSettings.PluginState.ON
-
         theWebPage.setWebChromeClient(object : WebChromeClient() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             override fun onPermissionRequest(request: PermissionRequest) {
@@ -161,15 +159,40 @@ class Webviewscreen : Activity() {
             }
         })
 
-        theWebPage.loadDataWithBaseURL(
-            "https://cdn.camweara.com/",
-            text,
-            "text/html",
-            "UTF-8",
-            null
-        )
+        GlobalScope.launch(Dispatchers.IO) {
+            val time = measureTimeMillis {
+                val result =
+                    URL("https://camweara-customers.s3.ap-south-1.amazonaws.com/Teststore/Teststore_tryonbutton.json").readText()
+                val jsonObj = JSONObject(
+                    result.substring(
+                        result.indexOf("{"),
+                        result.lastIndexOf("}") + 1
+                    )
+                )
+                var isShow = false;
+                val skusJson = jsonObj.getJSONArray("sku")
+                var language = arrayOf(skusJson)
+                for (item in language)
+                    for (i in 0 until item.length()) {
+                        for (j in 0 until strs!!.size) {
+                            if (item[i].toString().equals(strs[j].toString().trim()))
+                                println("imran: " + item[i])
+                            isShow = true;
+                        }
+                    }
 
-        setContentView(theWebPage)
+                if (isShow) {
+                    theWebPage.loadDataWithBaseURL(
+                        "https://cdn.camweara.com/",
+                        text,
+                        "text/html",
+                        "UTF-8",
+                        null
+                    )
+                    setContentView(theWebPage)
+                }
+            }
+        }
 
         theWebPage.setWebViewClient(object : WebViewClient() {
             override fun onPageFinished(view: WebView, weburl: String) {
@@ -177,10 +200,11 @@ class Webviewscreen : Activity() {
                 theWebPage.loadUrl(
                     url
                 )
-               // theWebPage.loadUrl("javascript:onTryonClick('earring6');")
+                // theWebPage.loadUrl("javascript:onTryonClick('earring6');")
             }
         })
-
         theWebPage.addJavascriptInterface(this, "Android")
+
+
     }
 }
