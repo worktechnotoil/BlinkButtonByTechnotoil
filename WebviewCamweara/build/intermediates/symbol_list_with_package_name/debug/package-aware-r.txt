@@ -1,3 +1,0 @@
-com.example.blinkbuttonbytechnotoil
-id web
-layout webiew_layout

@@ -146,6 +146,7 @@ class Webviewscreen : Activity() {
     private lateinit var theWebPage: WebView
     var skus = ""
     var companyName = ""
+    var message=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -154,7 +155,7 @@ class Webviewscreen : Activity() {
 
         skus = intent.getStringExtra("skus").toString().trim()
         companyName = intent.getStringExtra("companyName").toString().trim()
-
+        message = intent.getStringExtra("message").toString().trim()
         val strs = skus?.split(",")
         theWebPage = WebView(this)
 
@@ -200,7 +201,7 @@ class Webviewscreen : Activity() {
                 if (isNo == 0) {
                     Toast.makeText(
                         this,
-                        "Your sku not found",
+                        message,
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
