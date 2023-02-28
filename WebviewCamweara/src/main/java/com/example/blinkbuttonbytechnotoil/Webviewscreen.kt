@@ -142,16 +142,16 @@ class Webviewscreen : Activity() {
         //Toast.makeText(this, "Back button", Toast.LENGTH_SHORT).show()
         finish()
     }
-
-    fun myMethod(  ) :Boolean {
+    var isNo = 0
+    fun myMethod(    ) :Boolean {
 
 
 //       Toast.makeText(this, "hello dear", Toast.LENGTH_SHORT)
 //           .show()
 
-        skus =    "demo_1020054"  //intent.getStringExtra("skus").toString().trim()
-        companyName =   "Teststore"   //intent.getStringExtra("companyName").toString().trim()
-        message ="sfgsdggd" //intent.getStringExtra("message").toString().trim()
+        skus = "demo_1020054"  //intent.getStringExtra("skus").toString().trim()
+        companyName = "Teststore"   //intent.getStringExtra("companyName").toString().trim()
+        message = "sfgsdggd" //intent.getStringExtra("message").toString().trim()
         val strs = skus?.split(",")
         theWebPage = WebView(this)
 
@@ -178,7 +178,7 @@ class Webviewscreen : Activity() {
                 val skusJson = jsonObj.getJSONArray("sku")
                 var language = arrayOf(skusJson)
 
-                var isNo = 0
+                //var isNo = 0
 
                 var arrayString = strs;
 
@@ -194,29 +194,31 @@ class Webviewscreen : Activity() {
                             isNo = isNo + 1;
                         }
                     }
-//
+
 //                    if (isNo == 0) {
 //
 //
-//                    Toast.makeText(
-//                        this,
-//                        "sku not present on Camweara dashboard",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    finish()
-//
-//
-//                }
-
+//                        Toast.makeText(
+//                            this,
+//                            "sku not present on Camweara dashboard",
+//                            Toast.LENGTH_SHORT
+//                        ).show()
+//                        finish()
+//                    }
 
 
                 }
-            }}
 
+            }
+        }
+        if (isNo == 0) {
+            return true
 
-
-        return false
+        } else {
+            return true
+        }
     }
+
 
     private lateinit var theWebPage: WebView
     var skus = ""
