@@ -143,22 +143,11 @@ class Webviewscreen : Activity() {
         finish()
     }
 
-    fun myMethod( ) {
+    fun myMethod(  ): String {
+
 
 //       Toast.makeText(this, "hello dear", Toast.LENGTH_SHORT)
 //           .show()
-        println("Hello devi testing")
-    }
-
-    private lateinit var theWebPage: WebView
-    var skus = ""
-    var companyName = ""
-    var message=""
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
 
         skus = intent.getStringExtra("skus").toString().trim()
         companyName = intent.getStringExtra("companyName").toString().trim()
@@ -204,8 +193,7 @@ class Webviewscreen : Activity() {
                             isNo = isNo + 1;
                         }
                     }
-                }
-                if (isNo == 0) {
+                    if (isNo == 0) {
                     Toast.makeText(
                         this,
                         "sku not present on Camweara dashboard",
@@ -213,9 +201,78 @@ class Webviewscreen : Activity() {
                     ).show()
                     finish()
                 }
-            }
-        }
+
+                }}}
+       return  "0"
+
     }
+
+    private lateinit var theWebPage: WebView
+    var skus = ""
+    var companyName = ""
+    var message=""
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
+
+
+//        skus = intent.getStringExtra("skus").toString().trim()
+//        companyName = intent.getStringExtra("companyName").toString().trim()
+//        message = intent.getStringExtra("message").toString().trim()
+//        val strs = skus?.split(",")
+//        theWebPage = WebView(this)
+//
+//        thread {
+//            val result = try {
+//                URL("https://camweara-customers.s3.ap-south-1.amazonaws.com/$companyName/Teststore_tryonbutton.json").readText()
+//            } catch (e: Exception) {
+//                return@thread
+//            }
+//            runOnUiThread {
+//                var obj = JSONObject(result)
+//                var sessionArray: JSONArray = obj.optJSONArray("sku")
+//                System.out.println("obj1: $sessionArray")
+//                var firstObject = sessionArray[0]
+//                System.out.println("obj1: $firstObject")
+//
+//
+//                val jsonObj = JSONObject(
+//                    result.substring(
+//                        result.indexOf("{"),
+//                        result.lastIndexOf("}") + 1
+//                    )
+//                )
+//                val skusJson = jsonObj.getJSONArray("sku")
+//                var language = arrayOf(skusJson)
+//
+//                var isNo = 0
+//
+//                var arrayString = strs;
+//
+//
+//                for (i in 0 until sessionArray.length()) {
+//
+//                    var item = sessionArray[i];
+//                    for (skuItem in arrayString) {
+//                        println(item)
+//                        if (item.toString().equals(skuItem)) {
+//                            showwebview();
+//                            isNo = isNo + 1;
+//                        }
+//                    }
+//                }
+//                if (isNo == 0) {
+//                    Toast.makeText(
+//                        this,
+//                        "sku not present on Camweara dashboard",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
+//                    finish()
+//                }
+//            }
+//        }
+   }
 
 
     fun showwebview() {
