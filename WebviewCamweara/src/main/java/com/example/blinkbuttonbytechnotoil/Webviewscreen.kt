@@ -143,7 +143,7 @@ class Webviewscreen : Activity() {
         finish()
     }
 
-    fun myMethod(  ): String {
+    fun myMethod(  ) :Boolean {
 
 
 //       Toast.makeText(this, "hello dear", Toast.LENGTH_SHORT)
@@ -187,24 +187,34 @@ class Webviewscreen : Activity() {
 
                     var item = sessionArray[i];
                     for (skuItem in arrayString) {
+
                         println(item)
                         if (item.toString().equals(skuItem)) {
                             showwebview();
                             isNo = isNo + 1;
                         }
                     }
+
                     if (isNo == 0) {
+
+
                     Toast.makeText(
                         this,
                         "sku not present on Camweara dashboard",
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
+
+
                 }
 
-                }}}
-       return  "0"
 
+
+                }}}
+
+
+
+        return false
     }
 
     private lateinit var theWebPage: WebView
