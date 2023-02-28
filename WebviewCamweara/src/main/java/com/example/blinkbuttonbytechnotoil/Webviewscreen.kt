@@ -143,6 +143,13 @@ class Webviewscreen : Activity() {
         finish()
     }
 
+    fun myMethod( ) {
+
+//       Toast.makeText(this, "hello dear", Toast.LENGTH_SHORT)
+//           .show()
+        println("Hello devi testing")
+    }
+
     private lateinit var theWebPage: WebView
     var skus = ""
     var companyName = ""
@@ -201,7 +208,7 @@ class Webviewscreen : Activity() {
                 if (isNo == 0) {
                     Toast.makeText(
                         this,
-                        message,
+                        "sku not present on Camweara dashboard",
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
