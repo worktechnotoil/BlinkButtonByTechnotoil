@@ -151,9 +151,9 @@ class Webviewscreen : Activity() {
 
 
 
-    fun performWork(companyName: String, myCallback: (result: Boolean?) -> Unit) {
+    fun performWork(companyName: String,skus:String, myCallback: (result: Boolean?) -> Unit) {
 
-        skus = "demo_1020054"  //intent.getStringExtra("skus").toString().trim()
+      //  skus = "demo_1020054"  //intent.getStringExtra("skus").toString().trim()
        //intent.getStringExtra("message").toString().trim()
         val strs = skus?.split(",")
 
