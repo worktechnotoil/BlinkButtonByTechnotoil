@@ -256,14 +256,14 @@ class Webviewscreen : Activity() {
                         }
                     }
                 }
-//                if (isNo == 0) {
-//                    Toast.makeText(
-//                        this,
-//                        "sku not present on Camweara dashboard",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
-//                    finish()
-//                }
+                if (isNo == 0) {
+                    Toast.makeText(
+                        this,
+                        "sku not present on Camweara dashboard",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    finish()
+              }
             }
         }
    }
