@@ -179,7 +179,8 @@ class Webviewscreen : Activity() {
             val skusJson = jsonObj.getJSONArray("sku")
             var language = arrayOf(skusJson)
 
-            //var isNo = 0
+            /////var .
+            // isNo = 0
 
             var arrayString = strs;
 
