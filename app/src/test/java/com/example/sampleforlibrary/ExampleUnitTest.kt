@@ -1,4 +1,4 @@
-package com.example.blinkbuttonbytechnotoil
+package com.example.sampleforlibrary
 
 import org.junit.Test
 

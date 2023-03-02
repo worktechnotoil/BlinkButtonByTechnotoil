@@ -1,4 +1,3 @@
-package com.example.blinkbuttonbytechnotoil
 
 import android.annotation.TargetApi
 import android.app.Activity
@@ -20,7 +19,7 @@ import kotlin.concurrent.thread
 import kotlin.system.measureTimeMillis
 
 
-class Webviewscreen : Activity() {
+class Newscrren : Activity() {
 
     var text = "<?php ?>\n" +
             "<!DOCTYPE html>\n" +
@@ -143,7 +142,6 @@ class Webviewscreen : Activity() {
         finish()
     }
     var isNo = 0
-   // var isNo = 0
     var skus = ""
     var companyName = ""
     var message=""
@@ -151,10 +149,10 @@ class Webviewscreen : Activity() {
 
 
 
-    fun performWork(companyName: String,skus:String, myCallback: (result: Boolean?) -> Unit) {
+    fun performWork(companyName: String, myCallback: (result: Boolean?) -> Unit) {
 
-      //  skus = "demo_1020054"  //intent.getStringExtra("skus").toString().trim()
-       //intent.getStringExtra("message").toString().trim()
+        skus = "demo_1020054"  //intent.getStringExtra("skus").toString().trim()
+        message = "sfgsdggd" //intent.getStringExtra("message").toString().trim()
         val strs = skus?.split(",")
 
         thread {
@@ -163,38 +161,38 @@ class Webviewscreen : Activity() {
             } catch (e: Exception) {
                 return@thread
             }
-            var obj = JSONObject(result)
-            var sessionArray: JSONArray = obj.optJSONArray("sku")
-            System.out.println("obj1: $sessionArray")
-            var firstObject = sessionArray[0]
-            System.out.println("obj1: $firstObject")
+                var obj = JSONObject(result)
+                var sessionArray: JSONArray = obj.optJSONArray("sku")
+                System.out.println("obj1: $sessionArray")
+                var firstObject = sessionArray[0]
+                System.out.println("obj1: $firstObject")
 
 
-            val jsonObj = JSONObject(
-                result.substring(
-                    result.indexOf("{"),
-                    result.lastIndexOf("}") + 1
+                val jsonObj = JSONObject(
+                    result.substring(
+                        result.indexOf("{"),
+                        result.lastIndexOf("}") + 1
+                    )
                 )
-            )
-            val skusJson = jsonObj.getJSONArray("sku")
-            var language = arrayOf(skusJson)
+                val skusJson = jsonObj.getJSONArray("sku")
+                var language = arrayOf(skusJson)
 
-            //var isNo = 0
+                //var isNo = 0
 
-            var arrayString = strs;
+                var arrayString = strs;
 
 
-            for (i in 0 until sessionArray.length()) {
+                for (i in 0 until sessionArray.length()) {
 
-                var item = sessionArray[i];
-                for (skuItem in arrayString) {
+                    var item = sessionArray[i];
+                    for (skuItem in arrayString) {
 
-                    println(item)
-                    if (item.toString().equals(skuItem)) {
-                        isNo = isNo + 1;
+                        println(item)
+                        if (item.toString().equals(skuItem)) {
+                            isNo = isNo + 1;
+                        }
                     }
                 }
-            }
 
             if (isNo == 0) {
                 myCallback.invoke(false)
@@ -202,8 +200,10 @@ class Webviewscreen : Activity() {
             } else {
                 myCallback.invoke(true)
             }
-        }}
+            }
 
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -213,9 +213,9 @@ class Webviewscreen : Activity() {
 
         skus = intent.getStringExtra("skus").toString().trim()
         companyName = intent.getStringExtra("companyName").toString().trim()
-        message = intent.getStringExtra("message").toString().trim()
+//              message = intent.getStringExtra("message").toString().trim()
         val strs = skus?.split(",")
-        theWebPage = WebView(this)
+       theWebPage = WebView(this)
 
         thread {
             val result = try {
@@ -263,13 +263,15 @@ class Webviewscreen : Activity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
-              }
+                }
             }
-        }
-   }
+       }
+    }
 
 
     fun showwebview() {
+        theWebPage.webViewClient = WebViewClient()
+
 
         theWebPage.settings.javaScriptEnabled = true
         theWebPage.settings.pluginState = WebSettings.PluginState.ON
