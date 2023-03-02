@@ -151,7 +151,7 @@ class Webviewscreen : Activity() {
 
 
 
-    fun performWork(companyName: String,skus:String, myCallback: (result: Boolean?) -> Unit) {
+    fun check_skus(companyName: String,skus:String, myCallback: (result: Boolean?) -> Unit) {
 
       //  skus = "demo_1020054"  //intent.getStringExtra("skus").toString().trim()
        //intent.getStringExtra("message").toString().trim()
